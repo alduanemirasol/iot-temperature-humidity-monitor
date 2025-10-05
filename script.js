@@ -1,11 +1,12 @@
 const DB =
   "https://iot-temp-humidity-monito-fbbb4-default-rtdb.asia-southeast1.firebasedatabase.app";
 const PATH = "/sensor.json";
-const OFFLINE_THRESHOLD = 15000; // 15s
+
+let startMillis = Date.now();
 
 async function fetchData() {
   try {
-    const res = await fetch(DB + PATH); // get data
+    const res = await fetch(DB + PATH);
     if (!res.ok) throw new Error("HTTP " + res.status);
     const data = await res.json();
 
@@ -13,29 +14,29 @@ async function fetchData() {
     const humElem = document.getElementById("hum");
     const lastElem = document.getElementById("last");
 
-    const t = data?.temperature ?? data?.temp ?? null; // temp
-    const h = data?.humidity ?? data?.hum ?? null; // humidity
-    const lastUpdate = data?.timestamp ? new Date(data.timestamp) : new Date(); // timestamp
-    const isOffline = new Date() - lastUpdate > OFFLINE_THRESHOLD; // check offline
+    const t = data?.temperature ?? data?.temp ?? null;
+    const h = data?.humidity ?? data?.hum ?? null;
 
-    if (t !== null && h !== null && !isOffline) {
+    const timestamp = data?.timestamp ?? 0;
+    const lastUpdate = new Date(startMillis + timestamp);
+
+    if (t !== null && h !== null) {
       tempElem.textContent = `${t} °C`;
       humElem.textContent = `${h} %`;
       lastElem.textContent = `Last update: ${lastUpdate.toLocaleString()}`;
       tempElem.style.color =
         humElem.style.color =
         lastElem.style.color =
-          "#eeeeee"; // normal color
+          "#eeeeee";
     } else {
-      tempElem.textContent = humElem.textContent = "Sensor offline";
-      lastElem.textContent = isOffline ? "No recent data" : "No data";
+      tempElem.textContent = humElem.textContent = "No data";
+      lastElem.textContent = "No data";
       tempElem.style.color =
         humElem.style.color =
         lastElem.style.color =
-          "#d62828"; // warning
+          "#d62828";
     }
   } catch (err) {
-    console.error(err);
     const tempElem = document.getElementById("temp");
     const humElem = document.getElementById("hum");
     const lastElem = document.getElementById("last");
@@ -45,9 +46,9 @@ async function fetchData() {
     tempElem.style.color =
       humElem.style.color =
       lastElem.style.color =
-        "#d62828"; // warning
+        "#d62828";
   }
 }
 
-fetchData(); // initial fetch
-setInterval(fetchData, 2000); // repeat every 2s
+fetchData();
+setInterval(fetchData, 2000);
