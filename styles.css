@@ -23,7 +23,7 @@ body {
 }
 
 .card {
-  background: linear-gradient(145deg, #00adb5, #015a61);
+  background: linear-gradient(145deg, #00adb5, #006269);
   border-radius: 25px;
   padding: 40px 30px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
@@ -31,12 +31,14 @@ body {
   width: 100%;
   max-width: 500px;
   margin-bottom: 20px;
+  transition: all 0.3s ease;
 }
 
 h1 {
   font-size: 28px;
   margin-bottom: 15px;
   letter-spacing: 1px;
+  line-height: 1.2;
 }
 
 .timestamp {
@@ -62,11 +64,12 @@ h1 {
   display: flex;
   flex-direction: column;
   align-items: center;
-  transition: background 0.3s ease;
+  transition: background 0.3s ease, transform 0.3s ease;
 }
 
 .value-box:hover {
   background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-5px);
 }
 
 .label {
@@ -94,6 +97,30 @@ footer {
   margin-top: 20px;
 }
 
+/* Tablet */
+@media (max-width: 1024px) {
+  .card {
+    padding: 35px 25px;
+  }
+  h1 {
+    font-size: 26px;
+  }
+  .value-box {
+    flex: 1 1 48%;
+    padding: 22px;
+  }
+  .label {
+    font-size: 17px;
+  }
+  .value {
+    font-size: 36px;
+  }
+  .icon {
+    font-size: 32px;
+  }
+}
+
+/* Mobile */
 @media (max-width: 768px) {
   .card {
     padding: 30px 20px;
@@ -102,16 +129,38 @@ footer {
     flex: 1 1 100%;
     padding: 20px;
   }
-}
-
-@media (max-width: 480px) {
   h1 {
-    font-size: 22px;
+    font-size: 24px;
   }
   .label {
     font-size: 16px;
   }
   .value {
     font-size: 32px;
+  }
+  .icon {
+    font-size: 28px;
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+  .card {
+    padding: 25px 15px;
+  }
+  h1 {
+    font-size: 20px;
+  }
+  .label {
+    font-size: 14px;
+  }
+  .value {
+    font-size: 28px;
+  }
+  .icon {
+    font-size: 24px;
+  }
+  .timestamp {
+    font-size: 14px;
   }
 }
