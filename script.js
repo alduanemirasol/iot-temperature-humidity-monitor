@@ -50,4 +50,4 @@ async function fetchData() {
 }
 
 fetchData(); // initial fetch
-setInterval(fetchData, 1500); // repeat every 1.5s
+setInterval(fetchData, 2000); // repeat every 2s
