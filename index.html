@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Temperature & Humidity Monitor</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Poppins", system-ui, Arial, sans-serif;
+        background: linear-gradient(135deg, #222831, #393e46);
+        color: #eeeeee;
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        padding: 10px;
+      }
+
+      .card {
+        background: linear-gradient(145deg, #00adb5, #015a61);
+        border-radius: 25px;
+        padding: 40px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+        text-align: center;
+        width: 100%;
+        max-width: 500px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        animation: fadeIn 0.6s ease forwards;
+      }
+
+      .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.45);
+      }
+
+      h1 {
+        font-size: 28px;
+        margin-bottom: 15px;
+        letter-spacing: 1px;
+      }
+
+      .timestamp {
+        color: #eeeeeecc;
+        font-size: 16px;
+        margin-bottom: 30px;
+      }
+
+      .values {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        gap: 25px;
+        flex-wrap: wrap;
+      }
+
+      .value-box {
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 15px;
+        padding: 25px 30px;
+        flex: 1 1 45%;
+        min-width: 180px;
+        transition: background 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .value-box:hover {
+        background: rgba(255, 255, 255, 0.25);
+      }
+
+      .label {
+        font-size: 18px;
+        color: #eeeeeecc;
+      }
+
+      .value {
+        font-size: 40px;
+        font-weight: 700;
+        margin-top: 10px;
+      }
+
+      .icon {
+        font-size: 36px;
+        margin-bottom: 10px;
+        display: block;
+      }
+
+      footer {
+        font-size: 14px;
+        color: #999;
+        margin-top: 40px;
+        text-align: center;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (max-width: 480px) {
+        .card {
+          padding: 30px 20px;
+        }
+        .values {
+          gap: 15px;
+        }
+        .value-box {
+          padding: 20px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="card">
+      <h1>🌡 Temperature & 💧 Humidity</h1>
+      <div id="last" class="timestamp">Last update: —</div>
+      <div class="values">
+        <div class="value-box">
+          <span class="icon">🌡</span>
+          <div class="label">Temperature</div>
+          <div id="temp" class="value">— °C</div>
+        </div>
+        <div class="value-box">
+          <span class="icon">💧</span>
+          <div class="label">Humidity</div>
+          <div id="hum" class="value">— %</div>
+        </div>
+      </div>
+    </div>
+
+    <footer>Realtime IoT Sensor Dashboard</footer>
+
+    <script>
+      const DB =
+        "https://iot-temp-humidity-monito-fbbb4-default-rtdb.asia-southeast1.firebasedatabase.app";
+      const PATH = "/sensor.json";
+
+      async function fetchData() {
+        try {
+          const res = await fetch(DB + PATH);
+          if (!res.ok) throw new Error("HTTP " + res.status);
+          const data = await res.json();
+
+          if (data) {
+            const t = data.temperature ?? data.temp ?? null;
+            const h = data.humidity ?? data.hum ?? null;
+
+            if (t !== null)
+              document.getElementById("temp").textContent = t + " °C";
+            if (h !== null)
+              document.getElementById("hum").textContent = h + " %";
+
+            document.getElementById("last").textContent =
+              "Last update: " + new Date().toLocaleString();
+          } else {
+            document.getElementById("temp").textContent = "—";
+            document.getElementById("hum").textContent = "—";
+          }
+        } catch (err) {
+          console.error(err);
+          document.getElementById("last").textContent = "Error fetching data";
+        }
+      }
+
+      fetchData();
+      setInterval(fetchData, 5000);
+    </script>
+  </body>
+</html>
