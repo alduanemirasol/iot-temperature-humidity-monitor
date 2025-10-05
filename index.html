@@ -1,192 +1,206 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Temperature & Humidity Monitor</title>
-    <style>
-      * {
-        box-sizing: border-box;
-      }
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Temperature & Humidity Monitor</title>
+<style>
+* { box-sizing: border-box; }
+body {
+  font-family: "Poppins", system-ui, Arial, sans-serif;
+  background: linear-gradient(135deg, #222831, #393e46);
+  color: #eeeeee;
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 10px;
+}
+.card {
+  background: linear-gradient(145deg, #00adb5, #015a61);
+  border-radius: 25px;
+  padding: 40px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+  text-align: center;
+  width: 100%;
+  max-width: 500px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  animation: fadeIn 0.6s ease forwards;
+  margin-bottom: 20px;
+}
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.45);
+}
+h1 { font-size: 28px; margin-bottom: 15px; letter-spacing: 1px; }
+.timestamp { color: #eeeeeecc; font-size: 16px; margin-bottom: 30px; }
+.value.offline { color: #ff4d4d; }
+.values {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 25px;
+  flex-wrap: wrap;
+}
+.value-box {
+  background: rgba(255,255,255,0.15);
+  border-radius: 15px;
+  padding: 25px 30px;
+  flex: 1 1 45%;
+  min-width: 180px;
+  transition: background 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.value-box:hover { background: rgba(255,255,255,0.25); }
+.label { font-size: 18px; color: #eeeeeecc; }
+.value { font-size: 40px; font-weight: 700; margin-top: 10px; }
+.icon { font-size: 36px; margin-bottom: 10px; display: block; }
+footer { font-size: 14px; color: #999; margin-top: 40px; text-align: center; }
 
-      body {
-        font-family: "Poppins", system-ui, Arial, sans-serif;
-        background: linear-gradient(135deg, #222831, #393e46);
-        color: #eeeeee;
-        margin: 0;
-        min-height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        padding: 10px;
-      }
+.history-container {
+  width: 100%;
+  max-width: 500px;
+  background: rgba(0,0,0,0.25);
+  border-radius: 15px;
+  overflow-y: auto;
+  max-height: 300px;
+  margin-bottom: 20px;
+}
+.history-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.history-table th, .history-table td {
+  padding: 8px 12px;
+  text-align: center;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+.history-table th {
+  background: rgba(0,0,0,0.35);
+  position: sticky;
+  top: 0;
+}
+.history-table td {
+  color: #eeeeee;
+  font-size: 14px;
+}
 
-      .card {
-        background: linear-gradient(145deg, #00adb5, #015a61);
-        border-radius: 25px;
-        padding: 40px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
-        text-align: center;
-        width: 100%;
-        max-width: 500px;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        animation: fadeIn 0.6s ease forwards;
-      }
+@keyframes fadeIn {
+  from { opacity:0; transform:translateY(10px);}
+  to { opacity:1; transform:translateY(0);}
+}
+@media (max-width:480px) {
+  .card { padding:30px 20px; }
+  .values { gap:15px; }
+  .value-box { padding:20px; }
+}
+</style>
+</head>
+<body>
 
-      .card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.45);
-      }
-
-      h1 {
-        font-size: 28px;
-        margin-bottom: 15px;
-        letter-spacing: 1px;
-      }
-
-      .timestamp {
-        color: #eeeeeecc;
-        font-size: 16px;
-        margin-bottom: 30px;
-      }
-
-      .value.offline {
-        color: #ff4d4d;
-      }
-
-      .values {
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        gap: 25px;
-        flex-wrap: wrap;
-      }
-
-      .value-box {
-        background: rgba(255, 255, 255, 0.15);
-        border-radius: 15px;
-        padding: 25px 30px;
-        flex: 1 1 45%;
-        min-width: 180px;
-        transition: background 0.3s ease;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-      }
-
-      .value-box:hover {
-        background: rgba(255, 255, 255, 0.25);
-      }
-
-      .label {
-        font-size: 18px;
-        color: #eeeeeecc;
-      }
-
-      .value {
-        font-size: 40px;
-        font-weight: 700;
-        margin-top: 10px;
-      }
-
-      .icon {
-        font-size: 36px;
-        margin-bottom: 10px;
-        display: block;
-      }
-
-      footer {
-        font-size: 14px;
-        color: #999;
-        margin-top: 40px;
-        text-align: center;
-      }
-
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-          transform: translateY(10px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      @media (max-width: 480px) {
-        .card {
-          padding: 30px 20px;
-        }
-        .values {
-          gap: 15px;
-        }
-        .value-box {
-          padding: 20px;
-        }
-      }
-    </style>
-  </head>
-
-  <body>
-    <div class="card">
-      <h1>🌡 Temperature & 💧 Humidity</h1>
-      <div id="last" class="timestamp">Last update: —</div>
-      <div class="values">
-        <div class="value-box">
-          <span class="icon">🌡</span>
-          <div class="label">Temperature</div>
-          <div id="temp" class="value">— °C</div>
-        </div>
-        <div class="value-box">
-          <span class="icon">💧</span>
-          <div class="label">Humidity</div>
-          <div id="hum" class="value">— %</div>
-        </div>
-      </div>
+<div class="card">
+  <h1>🌡 Temperature & 💧 Humidity</h1>
+  <div id="last" class="timestamp">Last update: —</div>
+  <div class="values">
+    <div class="value-box">
+      <span class="icon">🌡</span>
+      <div class="label">Temperature</div>
+      <div id="temp" class="value">— °C</div>
     </div>
+    <div class="value-box">
+      <span class="icon">💧</span>
+      <div class="label">Humidity</div>
+      <div id="hum" class="value">— %</div>
+    </div>
+  </div>
+</div>
 
-    <footer>Realtime IoT Sensor Dashboard</footer>
+<div class="history-container">
+  <table class="history-table" id="history">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Timestamp</th>
+        <th>Temperature</th>
+        <th>Humidity</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</div>
 
-    <script>
-      const DB =
-        "https://iot-temp-humidity-monito-fbbb4-default-rtdb.asia-southeast1.firebasedatabase.app";
-      const PATH = "/sensor.json";
+<footer>Realtime IoT Sensor Dashboard</footer>
 
-      async function fetchData() {
-        try {
-          const res = await fetch(DB + PATH);
-          if (!res.ok) throw new Error("HTTP " + res.status);
-          const data = await res.json();
+<script>
+const DB = "https://iot-temp-humidity-monito-fbbb4-default-rtdb.asia-southeast1.firebasedatabase.app";
+const PATH = "/sensor.json";
 
-          const tempElem = document.getElementById("temp");
-          const humElem = document.getElementById("hum");
-          const lastElem = document.getElementById("last");
+let history = [];
 
-          if (data && (data.temperature != null || data.humidity != null)) {
-            const t = data.temperature ?? data.temp ?? null;
-            const h = data.humidity ?? data.hum ?? null;
+async function fetchData() {
+  try {
+    const res = await fetch(DB + PATH);
+    if (!res.ok) throw new Error("HTTP " + res.status);
+    const data = await res.json();
 
-            tempElem.textContent = t !== null ? t + " °C" : "Sensor offline";
-            humElem.textContent = h !== null ? h + " %" : "Sensor offline";
+    const tempElem = document.getElementById("temp");
+    const humElem = document.getElementById("hum");
+    const lastElem = document.getElementById("last");
 
-            lastElem.textContent =
-              "Last update: " + new Date().toLocaleString();
-          } else {
-            tempElem.textContent = "Sensor offline";
-            humElem.textContent = "Sensor offline";
-            lastElem.textContent = "No data available";
-          }
-        } catch (err) {
-          console.error(err);
-          document.getElementById("temp").textContent = "Sensor offline";
-          document.getElementById("hum").textContent = "Sensor offline";
-          document.getElementById("last").textContent = "Error fetching data";
-        }
-      }
+    let t = data?.temperature ?? data?.temp ?? null;
+    let h = data?.humidity ?? data?.hum ?? null;
 
-      fetchData();
-      setInterval(fetchData, 5000);
-    </script>
-  </body>
+    const timestamp = new Date().toLocaleString();
+
+    if (t !== null && h !== null) {
+      tempElem.textContent = t + " °C";
+      humElem.textContent = h + " %";
+      lastElem.textContent = "Last update: " + timestamp;
+
+      // store history
+      history.push({ temperature: t, humidity: h, timestamp });
+      if (history.length > 20) history.shift();
+
+      updateHistoryTable();
+    } else {
+      tempElem.textContent = "Sensor offline";
+      humElem.textContent = "Sensor offline";
+      lastElem.textContent = "No data available";
+    }
+  } catch (err) {
+    console.error(err);
+    document.getElementById("temp").textContent = "Sensor offline";
+    document.getElementById("hum").textContent = "Sensor offline";
+    document.getElementById("last").textContent = "Error fetching data";
+  }
+}
+
+function updateHistoryTable() {
+  const tbody = document.querySelector("#history tbody");
+  tbody.innerHTML = "";
+  history.forEach((item, index) => {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>${index + 1}</td>
+      <td>${item.timestamp}</td>
+      <td>${item.temperature} °C</td>
+      <td>${item.humidity} %</td>
+    `;
+    tbody.appendChild(row);
+  });
+
+  // scroll to bottom automatically
+  const container = document.querySelector(".history-container");
+  container.scrollTop = container.scrollHeight;
+}
+
+fetchData();
+setInterval(fetchData, 5000);
+</script>
+
+</body>
 </html>
