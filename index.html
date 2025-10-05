@@ -93,40 +93,6 @@
         margin-bottom: 10px;
       }
 
-      .history-container {
-        width: 100%;
-        max-width: 500px;
-        background: rgba(0, 0, 0, 0.25);
-        border-radius: 15px;
-        margin-bottom: 20px;
-      }
-
-      .history-table {
-        width: 100%;
-        table-layout: auto;
-        border-collapse: collapse;
-      }
-
-      .history-table th,
-      .history-table td {
-        padding: 8px 12px;
-        text-align: center;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-        word-wrap: break-word;
-      }
-
-      .history-table th {
-        background: rgba(0, 0, 0, 0.35);
-        position: sticky;
-        top: 0;
-        z-index: 1;
-      }
-
-      .history-table td {
-        color: #eeeeee;
-        font-size: 14px;
-      }
-
       footer {
         font-size: 14px;
         color: #999;
@@ -175,26 +141,11 @@
       </div>
     </div>
 
-    <div class="history-container">
-      <table class="history-table" id="history">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Timestamp</th>
-            <th>Temperature</th>
-            <th>Humidity</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-    </div>
-
     <footer>Realtime IoT Sensor Dashboard</footer>
 
     <script>
       const DB = "https://iot-temp-humidity-monito-fbbb4-default-rtdb.asia-southeast1.firebasedatabase.app";
       const PATH = "/sensor.json";
-      let history = [];
 
       async function fetchData() {
         try {
@@ -214,11 +165,6 @@
             tempElem.textContent = t + " °C";
             humElem.textContent = h + " %";
             lastElem.textContent = "Last update: " + timestamp;
-
-            history.push({ temperature: t, humidity: h, timestamp });
-            if (history.length > 20) history.shift();
-
-            updateHistoryTable();
           } else {
             tempElem.textContent = "Sensor offline";
             humElem.textContent = "Sensor offline";
@@ -230,21 +176,6 @@
           document.getElementById("hum").textContent = "Sensor offline";
           document.getElementById("last").textContent = "Error fetching data";
         }
-      }
-
-      function updateHistoryTable() {
-        const tbody = document.querySelector("#history tbody");
-        tbody.innerHTML = "";
-        history.forEach((item, index) => {
-          const row = document.createElement("tr");
-          row.innerHTML = `
-      <td>${index + 1}</td>
-      <td>${item.timestamp}</td>
-      <td>${item.temperature} °C</td>
-      <td>${item.humidity} %</td>
-    `;
-          tbody.appendChild(row);
-        });
       }
 
       fetchData();
