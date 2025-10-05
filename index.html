@@ -163,60 +163,25 @@
           const humElem = document.getElementById("hum");
           const lastElem = document.getElementById("last");
 
-          if (data) {
+          if (data && (data.temperature != null || data.humidity != null)) {
             const t = data.temperature ?? data.temp ?? null;
             const h = data.humidity ?? data.hum ?? null;
-            const ts = data.timestamp ?? 0; // make sure your sensor sends timestamp
 
-            const now = Date.now();
-            const age = now - ts;
-
-            // If data is older than 10 seconds, sensor is offline
-            if (age > 10000) {
-              tempElem.textContent = "Sensor offline";
-              humElem.textContent = "Sensor offline";
-              tempElem.classList.add("offline");
-              humElem.classList.add("offline");
-              lastElem.textContent = "Sensor not responding";
-              return;
-            }
-
-            if (t !== null) {
-              tempElem.textContent = t + " °C";
-              tempElem.classList.remove("offline");
-            } else {
-              tempElem.textContent = "Sensor offline";
-              tempElem.classList.add("offline");
-            }
-
-            if (h !== null) {
-              humElem.textContent = h + " %";
-              humElem.classList.remove("offline");
-            } else {
-              humElem.textContent = "Sensor offline";
-              humElem.classList.add("offline");
-            }
+            tempElem.textContent = t !== null ? t + " °C" : "Sensor offline";
+            humElem.textContent = h !== null ? h + " %" : "Sensor offline";
 
             lastElem.textContent =
-              "Last update: " + new Date(ts).toLocaleString();
+              "Last update: " + new Date().toLocaleString();
           } else {
             tempElem.textContent = "Sensor offline";
             humElem.textContent = "Sensor offline";
-            tempElem.classList.add("offline");
-            humElem.classList.add("offline");
             lastElem.textContent = "No data available";
           }
         } catch (err) {
           console.error(err);
-          const tempElem = document.getElementById("temp");
-          const humElem = document.getElementById("hum");
-          const lastElem = document.getElementById("last");
-
-          tempElem.textContent = "Sensor offline";
-          humElem.textContent = "Sensor offline";
-          tempElem.classList.add("offline");
-          humElem.classList.add("offline");
-          lastElem.textContent = "Error fetching data";
+          document.getElementById("temp").textContent = "Sensor offline";
+          document.getElementById("hum").textContent = "Sensor offline";
+          document.getElementById("last").textContent = "Error fetching data";
         }
       }
 
