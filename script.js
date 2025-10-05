@@ -7,42 +7,36 @@ let startMillis = Date.now();
 async function fetchData() {
   try {
     const res = await fetch(DB + PATH);
-    if (!res.ok) throw new Error("HTTP " + res.status);
     const data = await res.json();
 
     const tempElem = document.getElementById("temp");
     const humElem = document.getElementById("hum");
     const lastElem = document.getElementById("last");
 
-    const t = data?.temperature ?? data?.temp ?? null;
-    const h = data?.humidity ?? data?.hum ?? null;
+    const t = data?.temperature ?? data?.temp;
+    const h = data?.humidity ?? data?.hum;
+    const lastUpdate = new Date(startMillis + (data?.timestamp ?? 0));
 
-    const timestamp = data?.timestamp ?? 0;
-    const lastUpdate = new Date(startMillis + timestamp);
+    tempElem.textContent = t !== undefined ? `${t} °C` : "No data";
+    humElem.textContent = h !== undefined ? `${h} %` : "No data";
+    lastElem.textContent =
+      t !== undefined && h !== undefined
+        ? `Last update: ${lastUpdate.toLocaleString()}`
+        : "No data";
 
-    if (t !== null && h !== null) {
-      tempElem.textContent = `${t} °C`;
-      humElem.textContent = `${h} %`;
-      lastElem.textContent = `Last update: ${lastUpdate.toLocaleString()}`;
-      tempElem.style.color =
-        humElem.style.color =
-        lastElem.style.color =
-          "#eeeeee";
-    } else {
-      tempElem.textContent = humElem.textContent = "No data";
-      lastElem.textContent = "No data";
-      tempElem.style.color =
-        humElem.style.color =
-        lastElem.style.color =
-          "#d62828";
-    }
-  } catch (err) {
+    tempElem.style.color =
+      humElem.style.color =
+      lastElem.style.color =
+        "#eeeeee";
+  } catch {
     const tempElem = document.getElementById("temp");
     const humElem = document.getElementById("hum");
     const lastElem = document.getElementById("last");
 
-    tempElem.textContent = humElem.textContent = "Sensor offline";
-    lastElem.textContent = "Error fetching";
+    tempElem.textContent =
+      humElem.textContent =
+      lastElem.textContent =
+        "No data";
     tempElem.style.color =
       humElem.style.color =
       lastElem.style.color =
