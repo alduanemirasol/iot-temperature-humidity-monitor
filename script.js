@@ -2,8 +2,6 @@ const DB =
   "https://iot-temp-humidity-monito-fbbb4-default-rtdb.asia-southeast1.firebasedatabase.app";
 const PATH = "/sensor.json";
 
-let startMillis = Date.now();
-
 async function fetchData() {
   try {
     const res = await fetch(DB + PATH);
@@ -15,12 +13,19 @@ async function fetchData() {
 
     const t = data?.temperature ?? data?.temp;
     const h = data?.humidity ?? data?.hum;
-    const lastUpdate = new Date(startMillis + (data?.timestamp ?? 0));
+
+    const ts = (data?.timestamp ?? 0) * 1000;
+    const dt = new Date(ts);
+
+    const phtTime = dt.toLocaleString("en-PH", {
+      timeZone: "Asia/Manila",
+      hour12: true,
+    });
 
     if (t !== undefined && h !== undefined) {
       tempElem.textContent = `${t} °C`;
       humElem.textContent = `${h} %`;
-      lastElem.textContent = `Last update: ${lastUpdate.toLocaleString()}`;
+      lastElem.textContent = `Last update: ${phtTime}`;
       tempElem.style.color =
         humElem.style.color =
         lastElem.style.color =
