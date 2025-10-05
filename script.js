@@ -17,17 +17,24 @@ async function fetchData() {
     const h = data?.humidity ?? data?.hum;
     const lastUpdate = new Date(startMillis + (data?.timestamp ?? 0));
 
-    tempElem.textContent = t !== undefined ? `${t} °C` : "No data";
-    humElem.textContent = h !== undefined ? `${h} %` : "No data";
-    lastElem.textContent =
-      t !== undefined && h !== undefined
-        ? `Last update: ${lastUpdate.toLocaleString()}`
-        : "No data";
-
-    tempElem.style.color =
-      humElem.style.color =
-      lastElem.style.color =
-        "#eeeeee";
+    if (t !== undefined && h !== undefined) {
+      tempElem.textContent = `${t} °C`;
+      humElem.textContent = `${h} %`;
+      lastElem.textContent = `Last update: ${lastUpdate.toLocaleString()}`;
+      tempElem.style.color =
+        humElem.style.color =
+        lastElem.style.color =
+          "#eeeeee";
+    } else {
+      tempElem.textContent =
+        humElem.textContent =
+        lastElem.textContent =
+          "No data";
+      tempElem.style.color =
+        humElem.style.color =
+        lastElem.style.color =
+          "#d62828";
+    }
   } catch {
     const tempElem = document.getElementById("temp");
     const humElem = document.getElementById("hum");
