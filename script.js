@@ -23,8 +23,8 @@ async function fetchData() {
     });
 
     if (t !== undefined && h !== undefined) {
-      tempElem.textContent = `${t} °C`;
-      humElem.textContent = `${h} %`;
+      tempElem.textContent = `${t}°C`;
+      humElem.textContent = `${h}%`;
       lastElem.textContent = `Last update: ${phtTime}`;
       tempElem.style.color =
         humElem.style.color =
