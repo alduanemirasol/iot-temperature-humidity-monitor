@@ -14,15 +14,14 @@ async function fetchData() {
     const t = data?.temperature ?? data?.temp;
     const h = data?.humidity ?? data?.hum;
 
-    const ts = (data?.timestamp ?? 0) * 1000;
-    const dt = new Date(ts);
+    let dt = new Date(data?.timestamp?.replace(" ", "T") + "+08:00");
 
     const phtTime = dt.toLocaleString("en-PH", {
       timeZone: "Asia/Manila",
       hour12: true,
     });
 
-    if (t !== undefined && h !== undefined) {
+    if (t !== undefined && h !== undefined && !isNaN(dt)) {
       tempElem.textContent = `${t}°C`;
       humElem.textContent = `${h}%`;
       lastElem.textContent = `Last update: ${phtTime}`;
