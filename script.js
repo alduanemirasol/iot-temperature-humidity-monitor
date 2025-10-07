@@ -32,7 +32,7 @@ async function fetchData() {
       hour12: true,
     });
 
-    if (diffSeconds > 15) {
+    if (diffSeconds > 10) {
       updateUI(
         `${t ?? "?"}°C`,
         `${h ?? "?"}%`,
