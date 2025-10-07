@@ -20,19 +20,30 @@ async function fetchData() {
 
     const t = data?.temperature ?? data?.temp;
     const h = data?.humidity ?? data?.hum;
-    let dt = new Date(data?.timestamp?.replace(" ", "T") + "+08:00");
+    const ts = data?.timestamp;
+    if (!ts) throw new Error("No timestamp");
 
-    if (t !== undefined && h !== undefined && !isNaN(dt)) {
-      const phtTime = dt.toLocaleString("en-PH", {
-        timeZone: "Asia/Manila",
-        hour12: true,
-      });
-      updateUI(`${t}°C`, `${h}%`, `Last update: ${phtTime}`, "#eeeeee");
+    const dt = new Date(ts.replace(" ", "T") + "+08:00");
+    const now = new Date();
+    const diffSeconds = (now - dt) / 1000;
+
+    const phtTime = dt.toLocaleString("en-PH", {
+      timeZone: "Asia/Manila",
+      hour12: true,
+    });
+
+    if (diffSeconds > 15) {
+      updateUI(
+        `${t ?? "?"}°C`,
+        `${h ?? "?"}%`,
+        `Last update: ${phtTime} (Sensor Offline)`,
+        "#d62828"
+      );
     } else {
-      updateUI("No data", "No data", "No data", "#d62828");
+      updateUI(`${t}°C`, `${h}%`, `Last update: ${phtTime}`, "#eeeeee");
     }
   } catch {
-    updateUI("No data", "No data", "No data", "#d62828");
+    updateUI("No data", "No data", "No connection", "#d62828");
   }
 }
 
