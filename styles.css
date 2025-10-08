@@ -92,7 +92,7 @@ h1 {
 }
 
 .icon {
-  font-size: 26px;
+  font-size: 24px;
 }
 
 .label {
@@ -127,13 +127,21 @@ footer {
 }
 
 @media (max-width: 480px) {
+  body {
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 25px;
+  }
+
   .card {
     padding: 25px 15px;
   }
+
   .icon-box {
     width: 45px;
     height: 45px;
   }
+
   .value {
     font-size: 28px;
   }
