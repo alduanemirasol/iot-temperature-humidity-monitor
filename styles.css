@@ -24,7 +24,7 @@ body {
 }
 
 .card {
-  background: linear-gradient(145deg, #00adb5, #00575e);
+  background: linear-gradient(145deg, #00adb5, #006269);
   border-radius: 25px;
   padding: 40px 30px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
@@ -83,6 +83,7 @@ h1 {
   font-size: 40px;
   font-weight: 700;
   margin-top: 10px;
+  transition: color 0.3s ease;
   word-wrap: break-word;
 }
 
