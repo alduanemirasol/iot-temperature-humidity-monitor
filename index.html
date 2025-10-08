@@ -4,6 +4,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>IoT Temperature & Humidity Dashboard</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -17,14 +21,15 @@
         <div class="values">
           <div class="value-box">
             <div class="icon-box">
-              <span class="icon">🌞</span>
+              <i class="fa-solid fa-temperature-three-quarters icon"></i>
             </div>
             <div class="label">Temperature</div>
             <div id="temp" class="value">-- °C</div>
           </div>
+
           <div class="value-box">
             <div class="icon-box">
-              <span class="icon">💧</span>
+              <i class="fa-solid fa-droplet icon"></i>
             </div>
             <div class="label">Humidity</div>
             <div id="hum" class="value">-- %</div>
