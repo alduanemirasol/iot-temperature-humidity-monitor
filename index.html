@@ -7,24 +7,35 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div class="card">
-      <h1>IoT Temperature & Humidity Dashboard</h1>
-      <div id="last" class="timestamp">Last update: —</div>
-      <div class="values">
-        <div class="value-box">
-          <span class="icon">🌡</span>
-          <div class="label">Temperature</div>
-          <div id="temp" class="value"></div>
-        </div>
-        <div class="value-box">
-          <span class="icon">💧</span>
-          <div class="label">Humidity</div>
-          <div id="hum" class="value"></div>
-        </div>
-      </div>
-    </div>
+    <div class="container">
+      <header>
+        <h1>IoT Temperature and Humidity Monitor</h1>
+        <p id="last" class="timestamp">Last update: —</p>
+      </header>
 
-    <footer>Realtime IoT Sensor Dashboard</footer>
+      <main class="card">
+        <div class="values">
+          <div class="value-box">
+            <div class="icon-box">
+              <span class="icon">🌞</span>
+            </div>
+            <div class="label">Temperature</div>
+            <div id="temp" class="value">-- °C</div>
+          </div>
+          <div class="value-box">
+            <div class="icon-box">
+              <span class="icon">💧</span>
+            </div>
+            <div class="label">Humidity</div>
+            <div id="hum" class="value">-- %</div>
+          </div>
+        </div>
+      </main>
+
+      <footer>
+        <p>Realtime IoT Sensor Dashboard © 2025</p>
+      </footer>
+    </div>
 
     <script src="script.js"></script>
   </body>

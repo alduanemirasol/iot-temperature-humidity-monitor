@@ -1,168 +1,140 @@
 * {
   box-sizing: border-box;
-}
-
-html,
-body {
   margin: 0;
   padding: 0;
-  height: 100%;
-  font-family: "Poppins", system-ui, Arial, sans-serif;
-  background: linear-gradient(135deg, #222831, #393e46);
-  color: #eeeeee;
-  overflow-x: hidden;
 }
 
 body {
+  font-family: "Poppins", system-ui, Arial, sans-serif;
+  background: linear-gradient(135deg, #1a1f29, #2a303d);
+  color: #eeeeee;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-x: hidden;
+  padding: 20px;
+}
+
+.container {
+  width: 100%;
+  max-width: 520px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-  padding: 60px 10px 10px 10px;
   gap: 20px;
-  min-height: 100vh;
 }
 
-.card {
-  background: linear-gradient(145deg, #00adb5, #006269);
-  border-radius: 25px;
-  padding: 40px 30px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+header {
   text-align: center;
-  width: 100%;
-  max-width: 500px;
-  margin-bottom: 20px;
-  transition: all 0.3s ease;
 }
 
 h1 {
-  font-size: 28px;
-  margin-bottom: 15px;
+  font-size: 26px;
   letter-spacing: 1px;
-  line-height: 1.2;
+  color: #00adb5;
+  margin-bottom: 6px;
 }
 
 .timestamp {
-  color: #eeeeeecc;
-  font-size: 16px;
-  margin-bottom: 30px;
-  word-wrap: break-word;
+  color: #aaaaaa;
+  font-size: 15px;
+  font-weight: 300;
+}
+
+.card {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  padding: 35px 25px;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
 }
 
 .values {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 15px;
+  justify-content: center;
+  gap: 20px;
 }
 
 .value-box {
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 15px;
-  padding: 25px 20px;
   flex: 1 1 45%;
-  min-width: 120px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  transition: background 0.3s ease, transform 0.3s ease;
+  min-width: 150px;
+  background: linear-gradient(145deg, #00adb5, #007d83);
+  border-radius: 16px;
+  padding: 25px 15px;
+  text-align: center;
+  color: #fff;
+  transition: transform 0.3s ease, background 0.3s ease;
 }
 
 .value-box:hover {
-  background: rgba(255, 255, 255, 0.25);
-  transform: translateY(-5px);
+  transform: translateY(-6px);
+  background: linear-gradient(145deg, #00c9d2, #009ba1);
 }
 
-.label {
-  font-size: 18px;
-  color: #eeeeeecc;
-  word-wrap: break-word;
-}
-
-.value {
-  font-size: 40px;
-  font-weight: 700;
-  margin-top: 10px;
-  transition: color 0.3s ease;
-  word-wrap: break-word;
+.icon-box {
+  width: 55px;
+  height: 55px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  margin: 0 auto 12px auto;
 }
 
 .icon {
+  font-size: 30px;
+}
+
+.label {
+  font-size: 17px;
+  opacity: 0.9;
+}
+
+.value {
   font-size: 36px;
-  margin-bottom: 10px;
+  font-weight: 700;
+  margin-top: 8px;
 }
 
 footer {
   font-size: 14px;
-  color: #999;
+  color: #aaaaaa;
   text-align: center;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
-/* Tablet */
-@media (max-width: 1024px) {
-  .card {
-    padding: 35px 25px;
-  }
-  h1 {
-    font-size: 26px;
-  }
-  .value-box {
-    flex: 1 1 48%;
-    padding: 22px;
-  }
-  .label {
-    font-size: 17px;
-  }
-  .value {
-    font-size: 36px;
-  }
-  .icon {
-    font-size: 32px;
-  }
-}
-
-/* Mobile */
+/* Responsive Adjustments */
 @media (max-width: 768px) {
-  .card {
-    padding: 30px 20px;
+  h1 {
+    font-size: 22px;
   }
   .value-box {
     flex: 1 1 100%;
-    padding: 20px;
-  }
-  h1 {
-    font-size: 24px;
-  }
-  .label {
-    font-size: 16px;
   }
   .value {
-    font-size: 32px;
-  }
-  .icon {
-    font-size: 28px;
+    font-size: 30px;
   }
 }
 
-/* Small Mobile */
 @media (max-width: 480px) {
   .card {
     padding: 25px 15px;
   }
-  h1 {
-    font-size: 20px;
-  }
-  .label {
-    font-size: 14px;
+  .icon-box {
+    width: 45px;
+    height: 45px;
   }
   .value {
     font-size: 28px;
-  }
-  .icon {
-    font-size: 24px;
-  }
-  .timestamp {
-    font-size: 14px;
   }
 }
