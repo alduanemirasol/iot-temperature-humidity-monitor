@@ -13,7 +13,7 @@ body {
   align-items: center;
   justify-content: center;
   overflow-x: hidden;
-  padding: 20px;
+  padding: 2vw;
 }
 
 .container {
@@ -22,7 +22,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
+  gap: 1.5rem;
 }
 
 header {
@@ -30,15 +30,15 @@ header {
 }
 
 h1 {
-  font-size: 26px;
+  font-size: clamp(1.5rem, 4vw, 2rem);
   letter-spacing: 1px;
   color: #00adb5;
-  margin-bottom: 6px;
+  margin-bottom: 0.4rem;
 }
 
 .timestamp {
   color: #aaaaaa;
-  font-size: 15px;
+  font-size: clamp(0.8rem, 2vw, 1rem);
   font-weight: 300;
 }
 
@@ -46,7 +46,7 @@ h1 {
   width: 100%;
   background: rgba(255, 255, 255, 0.05);
   border-radius: 20px;
-  padding: 35px 25px;
+  padding: 3rem 2rem;
   box-shadow: 0 10px 35px rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(10px);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -61,15 +61,15 @@ h1 {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 20px;
+  gap: 1rem;
 }
 
 .value-box {
-  flex: 1 1 45%;
-  min-width: 150px;
+  flex: 1 1 calc(50% - 1rem);
+  min-width: 140px;
   background: linear-gradient(145deg, #00adb5, #007d83);
   border-radius: 16px;
-  padding: 25px 15px;
+  padding: 1.5rem 1rem;
   text-align: center;
   color: #fff;
   transition: transform 0.3s ease, background 0.3s ease;
@@ -81,48 +81,44 @@ h1 {
 }
 
 .icon-box {
-  width: 55px;
-  height: 55px;
+  width: 12vw;
+  max-width: 55px;
+  height: 12vw;
+  max-height: 55px;
   display: flex;
   align-items: center;
   justify-content: center;
   background: rgba(255, 255, 255, 0.2);
   border-radius: 50%;
-  margin: 0 auto 12px auto;
+  margin: 0 auto 0.75rem auto;
 }
 
 .icon {
-  font-size: 24px;
+  font-size: clamp(1rem, 4vw, 1.5rem);
 }
 
 .label {
-  font-size: 17px;
+  font-size: clamp(0.9rem, 2.5vw, 1.1rem);
   opacity: 0.9;
 }
 
 .value {
-  font-size: 36px;
+  font-size: clamp(1.8rem, 5vw, 2.5rem);
   font-weight: 700;
-  margin-top: 8px;
+  margin-top: 0.5rem;
 }
 
 footer {
-  font-size: 14px;
+  font-size: clamp(0.7rem, 2vw, 0.9rem);
   color: #aaaaaa;
   text-align: center;
-  margin-top: 10px;
+  margin-top: 0.5rem;
 }
 
-/* Responsive Adjustments */
+/* Media Queries */
 @media (max-width: 768px) {
-  h1 {
-    font-size: 22px;
-  }
   .value-box {
     flex: 1 1 100%;
-  }
-  .value {
-    font-size: 30px;
   }
 }
 
@@ -130,68 +126,15 @@ footer {
   body {
     align-items: flex-start;
     justify-content: center;
-    padding-top: 25px;
+    padding-top: 4vw;
   }
 
   .card {
-    padding: 25px 15px;
+    padding: 2rem 1rem;
   }
 
   .icon-box {
-    width: 45px;
-    height: 45px;
-  }
-
-  .value {
-    font-size: 28px;
-  }
-}
-
-@media (min-width: 1280px) {
-  .container {
-    max-width: 800px;
-    gap: 30px;
-  }
-
-  h1 {
-    font-size: 36px;
-    margin-bottom: 10px;
-  }
-
-  .timestamp {
-    font-size: 18px;
-  }
-
-  .card {
-    padding: 50px 40px;
-    border-radius: 24px;
-  }
-
-  .value-box {
-    flex: 1 1 45%;
-    min-width: 220px;
-    padding: 35px 25px;
-  }
-
-  .icon-box {
-    width: 70px;
-    height: 70px;
-  }
-
-  .icon {
-    font-size: 34px;
-  }
-
-  .label {
-    font-size: 20px;
-  }
-
-  .value {
-    font-size: 48px;
-  }
-
-  footer {
-    font-size: 16px;
-    margin-top: 20px;
+    width: 14vw;
+    height: 14vw;
   }
 }
