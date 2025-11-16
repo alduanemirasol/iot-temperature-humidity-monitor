@@ -6,116 +6,154 @@
 
 body {
   font-family: "Poppins", system-ui, Arial, sans-serif;
-  background: linear-gradient(135deg, #1a1f29, #2a303d);
+  background: radial-gradient(circle at top, #232833, #13161d 70%);
   color: #eeeeee;
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow-x: hidden;
   padding: 2vw;
 }
 
+/* Container */
 .container {
   width: 100%;
-  max-width: 520px;
+  max-width: 560px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.5rem;
+  gap: 1.7rem;
+  animation: fadeIn 0.8s ease;
 }
 
+/* Header */
 header {
   text-align: center;
 }
 
 h1 {
-  font-size: clamp(1.5rem, 4vw, 2rem);
-  letter-spacing: 1px;
-  color: #00adb5;
-  margin-bottom: 0.4rem;
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
+  letter-spacing: 1.3px;
+  font-weight: 600;
+  color: #00e1ef;
+  text-shadow: 0 0 8px rgba(0, 225, 239, 0.3);
 }
 
 .timestamp {
-  color: #aaaaaa;
-  font-size: clamp(0.8rem, 2vw, 1rem);
-  font-weight: 300;
+  color: #c7c7c7;
+  font-size: clamp(0.85rem, 2vw, 1rem);
+  margin-top: 0.3rem;
+  opacity: 0.85;
 }
 
+/* Card */
 .card {
   width: 100%;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 22px;
   padding: 3rem 2rem;
-  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(10px);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: 0.35s ease;
 }
 
 .card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+  transform: translateY(-6px);
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.55);
 }
 
+/* Sensor boxes */
 .values {
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
-  gap: 1rem;
+  gap: 1.2rem;
+  flex-wrap: wrap;
 }
 
 .value-box {
   flex: 1 1 calc(50% - 1rem);
-  min-width: 140px;
-  background: linear-gradient(145deg, #00adb5, #007d83);
-  border-radius: 16px;
-  padding: 1.5rem 1rem;
+  min-width: 150px;
+  background: linear-gradient(155deg, #00b4c2, #008a93);
+  border-radius: 18px;
+  padding: 1.7rem 1.2rem;
   text-align: center;
   color: #fff;
-  transition: transform 0.3s ease, background 0.3s ease;
+  box-shadow: 0 6px 18px rgba(0, 180, 194, 0.25);
+  transition: 0.28s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.value-box::before {
+  content: "";
+  position: absolute;
+  top: -20%;
+  right: -20%;
+  width: 90px;
+  height: 90px;
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 50%;
+  filter: blur(6px);
 }
 
 .value-box:hover {
-  transform: translateY(-6px);
-  background: linear-gradient(145deg, #00c9d2, #009ba1);
+  transform: translateY(-8px);
+  background: linear-gradient(155deg, #00ccd8, #00a2ad);
+  box-shadow: 0 8px 22px rgba(0, 204, 216, 0.32);
 }
 
+/* Icon */
 .icon-box {
-  width: 12vw;
-  max-width: 55px;
-  height: 12vw;
-  max-height: 55px;
+  width: 60px;
+  height: 60px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.25);
   border-radius: 50%;
-  margin: 0 auto 0.75rem auto;
+  margin: 0 auto 1rem;
 }
 
 .icon {
-  font-size: clamp(1rem, 4vw, 1.5rem);
+  font-size: 1.6rem;
 }
 
+/* Labels */
 .label {
-  font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+  font-size: 1.05rem;
   opacity: 0.9;
+  font-weight: 500;
 }
 
 .value {
-  font-size: clamp(1.8rem, 5vw, 2.5rem);
+  font-size: 2.6rem;
   font-weight: 700;
   margin-top: 0.5rem;
+  letter-spacing: 1px;
 }
 
+/* Footer */
 footer {
-  font-size: clamp(0.7rem, 2vw, 0.9rem);
-  color: #aaaaaa;
-  text-align: center;
+  font-size: 0.9rem;
+  color: #c6c6c6;
+  opacity: 0.8;
   margin-top: 0.5rem;
 }
 
-/* Media Queries */
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
 @media (max-width: 768px) {
   .value-box {
     flex: 1 1 100%;
@@ -123,18 +161,16 @@ footer {
 }
 
 @media (max-width: 480px) {
-  body {
-    align-items: flex-start;
-    justify-content: center;
-    padding-top: 4vw;
-  }
-
   .card {
-    padding: 2rem 1rem;
+    padding: 2.2rem 1.2rem;
   }
 
   .icon-box {
-    width: 14vw;
-    height: 14vw;
+    width: 52px;
+    height: 52px;
+  }
+
+  .value {
+    font-size: 2.2rem;
   }
 }
