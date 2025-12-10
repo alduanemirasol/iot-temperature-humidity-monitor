@@ -141,6 +141,14 @@ footer {
   margin-top: 0.5rem;
 }
 
+footer .credits {
+  font-weight: 500;
+  font-style: italic;
+  letter-spacing: 0.5px;
+  color: #ffffff;
+  opacity: 0.85;
+}
+
 /* Animations */
 @keyframes fadeIn {
   from {
