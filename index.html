@@ -1,49 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>IoT Temperature & Humidity Dashboard</title>
-    <link rel="icon" href="images/iot.png" type="image/png" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-    />
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <div class="container">
-      <header>
-        <h1>IoT Temperature and Humidity Monitor</h1>
-        <p id="last" class="timestamp">Last update: —</p>
-      </header>
 
-      <main class="card">
-        <div class="values">
-          <div class="value-box">
-            <div class="icon-box">
-              <i class="fa-solid fa-temperature-three-quarters icon"></i>
-            </div>
-            <div class="label">Temperature</div>
-            <div id="temp" class="value">-- °C</div>
-          </div>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>IoT Temperature & Humidity Dashboard</title>
+  <link rel="icon" href="images/iot.png" type="image/png" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
 
-          <div class="value-box">
-            <div class="icon-box">
-              <i class="fa-solid fa-droplet icon"></i>
-            </div>
-            <div class="label">Humidity</div>
-            <div id="hum" class="value">-- %</div>
+<body>
+  <div class="container">
+    <header>
+      <h1>IoT Temperature and Humidity Monitor</h1>
+      <p id="last" class="timestamp">Last update: —</p>
+    </header>
+
+    <main class="card">
+      <div class="values">
+        <div class="value-box">
+          <div class="icon-box">
+            <i class="fa-solid fa-temperature-three-quarters icon"></i>
           </div>
+          <div class="label">Temperature</div>
+          <div id="temp" class="value">-- °C</div>
         </div>
-      </main>
 
-      <footer>
-        <p>Realtime IoT Sensor Dashboard</p>
-        <p class="credits">Developed by Al Duane Mirasol</p>
-      </footer>
-    </div>
+        <div class="value-box">
+          <div class="icon-box">
+            <i class="fa-solid fa-droplet icon"></i>
+          </div>
+          <div class="label">Humidity</div>
+          <div id="hum" class="value">-- %</div>
+        </div>
+      </div>
+    </main>
 
-    <script src="script.js"></script>
-  </body>
+    <footer>
+      <p>Realtime IoT Sensor Dashboard</p>
+    </footer>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/12.6.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/12.6.0/firebase-database-compat.js"></script>
+  <script src="script.js"></script>
+</body>
+
 </html>

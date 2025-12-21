@@ -53,7 +53,6 @@ h1 {
   border-radius: 22px;
   padding: 3rem 2rem;
   box-shadow: 0 12px 35px rgba(0, 0, 0, 0.45);
-  backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.08);
   transition: 0.35s ease;
 }
@@ -139,14 +138,6 @@ footer {
   color: #c6c6c6;
   opacity: 0.8;
   margin-top: 0.5rem;
-}
-
-footer .credits {
-  font-weight: 500;
-  font-style: italic;
-  letter-spacing: 0.5px;
-  color: #ffffff;
-  opacity: 0.85;
 }
 
 /* Animations */
