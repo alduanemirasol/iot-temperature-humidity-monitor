@@ -15,7 +15,6 @@ body {
   padding: 2vw;
 }
 
-/* Container */
 .container {
   width: 100%;
   max-width: 560px;
@@ -26,7 +25,6 @@ body {
   animation: fadeIn 0.8s ease;
 }
 
-/* Header */
 header {
   text-align: center;
 }
@@ -46,7 +44,6 @@ h1 {
   opacity: 0.85;
 }
 
-/* Card */
 .card {
   width: 100%;
   background: rgba(255, 255, 255, 0.06);
@@ -62,7 +59,6 @@ h1 {
   box-shadow: 0 16px 45px rgba(0, 0, 0, 0.55);
 }
 
-/* Sensor boxes */
 .values {
   display: flex;
   justify-content: center;
@@ -102,7 +98,6 @@ h1 {
   box-shadow: 0 8px 22px rgba(0, 204, 216, 0.32);
 }
 
-/* Icon */
 .icon-box {
   width: 60px;
   height: 60px;
@@ -118,7 +113,6 @@ h1 {
   font-size: 1.6rem;
 }
 
-/* Labels */
 .label {
   font-size: 1.05rem;
   opacity: 0.9;
@@ -132,7 +126,6 @@ h1 {
   letter-spacing: 1px;
 }
 
-/* Footer */
 footer {
   font-size: 0.9rem;
   color: #c6c6c6;
@@ -140,7 +133,6 @@ footer {
   margin-top: 0.5rem;
 }
 
-/* Animations */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -152,7 +144,6 @@ footer {
   }
 }
 
-/* Responsive */
 @media (max-width: 768px) {
   .value-box {
     flex: 1 1 100%;

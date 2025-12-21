@@ -11,7 +11,6 @@ const humElem = document.getElementById("hum");
 const lastElem = document.getElementById("last");
 
 function updateUI(temp, hum, last, color) {
-  console.log("Updating UI:", { temp, hum, last, color });
   tempElem.textContent = temp;
   humElem.textContent = hum;
   lastElem.textContent = last;
@@ -19,12 +18,9 @@ function updateUI(temp, hum, last, color) {
 }
 
 sensorRef.on("value", (snapshot) => {
-  console.log("Firebase snapshot received:", snapshot);
   const data = snapshot.val();
-  console.log("Firebase data value:", data);
 
   if (!data) {
-    console.warn("No data received from Firebase");
     updateUI("--", "--", "No data", "#d62828");
     return;
   }
@@ -41,15 +37,10 @@ sensorRef.on("value", (snapshot) => {
         timeZone: "Asia/Manila",
         hour12: true,
       });
-    } catch (e) {
-      console.error("Timestamp parse error:", e, timestamp);
-    }
-  } else {
-    console.warn("No timestamp provided in data");
+    } catch {}
   }
 
   updateUI(`${t}°C`, `${h}%`, `Last update: ${phtTime}`, "#eeeeee");
-}, (error) => {
-  console.error("Firebase error:", error);
+}, () => {
   updateUI("Error", "Error", "Fetch failed", "#d62828");
 });

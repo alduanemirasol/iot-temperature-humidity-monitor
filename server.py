@@ -7,7 +7,6 @@ import os
 
 PORT = 8000
 
-# Get LAN IP
 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 try:
     s.connect(("8.8.8.8", 80))
@@ -15,7 +14,6 @@ try:
 finally:
     s.close()
 
-# Generate QR code
 URL = f"http://{IP}:{PORT}/"
 qr = qrcode.QRCode()
 qr.add_data(URL)
@@ -23,10 +21,8 @@ qr.make()
 qr.print_ascii(invert=True)
 print(f"Scan the QR code above or open {URL} in your browser")
 
-# FastAPI app
 app = FastAPI()
 
-# Custom StaticFiles to disable caching
 class NoCacheStaticFiles(StaticFiles):
     async def get_response(self, path, scope):
         response: Response = await super().get_response(path, scope)
