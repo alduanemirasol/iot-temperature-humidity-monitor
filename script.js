@@ -17,9 +17,7 @@ function updateUI(temp, hum, last, color) {
   tempElem.style.color = humElem.style.color = lastElem.style.color = color;
 }
 
-sensorRef.on("value", (snapshot) => {
-  const data = snapshot.val();
-
+function processSensorData(data) {
   if (!data) {
     updateUI("--", "--", "No data", "#d62828");
     return;
@@ -29,18 +27,22 @@ sensorRef.on("value", (snapshot) => {
   const h = data.humidity ?? data.hum ?? "--";
   const timestamp = data.timestamp ?? null;
 
-  let phtTime = "—";
+  let formattedTime = "—";
   if (timestamp) {
     try {
       const dt = new Date(timestamp.replace(" ", "T") + "+08:00");
-      phtTime = dt.toLocaleString("en-PH", {
+      formattedTime = dt.toLocaleString("en-PH", {
         timeZone: "Asia/Manila",
         hour12: true,
       });
     } catch {}
   }
 
-  updateUI(`${t}°C`, `${h}%`, `Last update: ${phtTime}`, "#eeeeee");
-}, () => {
-  updateUI("Error", "Error", "Fetch failed", "#d62828");
-});
+  updateUI(`${t}°C`, `${h}%`, `Last update: ${formattedTime}`, "#eeeeee");
+}
+
+sensorRef.on(
+  "value",
+  snapshot => processSensorData(snapshot.val()),
+  () => updateUI("Error", "Error", "Fetch failed", "#d62828")
+);
