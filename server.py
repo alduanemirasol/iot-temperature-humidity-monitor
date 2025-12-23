@@ -3,25 +3,23 @@ from fastapi.staticfiles import StaticFiles
 import uvicorn
 import socket
 import qrcode
-import os
 
 PORT = 8000
 
-s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-try:
-    s.connect(("8.8.8.8", 80))
-    IP = s.getsockname()[0]
-finally:
-    s.close()
+def get_local_ip() -> str:
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    try:
+        s.connect(("8.8.8.8", 80))
+        return s.getsockname()[0]
+    finally:
+        s.close()
 
-URL = f"http://{IP}:{PORT}/"
-qr = qrcode.QRCode()
-qr.add_data(URL)
-qr.make()
-qr.print_ascii(invert=True)
-print(f"Scan the QR code above or open {URL} in your browser")
-
-app = FastAPI()
+def generate_qr(url: str):
+    qr = qrcode.QRCode()
+    qr.add_data(url)
+    qr.make()
+    qr.print_ascii(invert=True)
+    print(f"Scan the QR code above or open {url} in your browser")
 
 class NoCacheStaticFiles(StaticFiles):
     async def get_response(self, path, scope):
@@ -30,7 +28,17 @@ class NoCacheStaticFiles(StaticFiles):
         response.headers["Pragma"] = "no-cache"
         return response
 
-app.mount("/", NoCacheStaticFiles(directory=".", html=True), name="static")
+def create_app() -> FastAPI:
+    app = FastAPI()
+    app.mount("/", NoCacheStaticFiles(directory=".", html=True), name="static")
+    return app
+
+def main():
+    IP = get_local_ip()
+    URL = f"http://{IP}:{PORT}/"
+    generate_qr(URL)
+    app = create_app()
+    uvicorn.run(app, host=IP, port=PORT)
 
 if __name__ == "__main__":
-    uvicorn.run(app, host=IP, port=PORT)
+    main()
