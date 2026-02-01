@@ -11,34 +11,169 @@
 </head>
 
 <body>
+  <!-- Animated background elements -->
+  <div class="bg-effects">
+    <div class="heat-wave"></div>
+    <div class="water-ripple"></div>
+  </div>
+
   <div class="container">
     <header>
-      <h1>IoT Temperature and Humidity Monitor</h1>
-      <p id="last" class="timestamp">Last update: —</p>
+      <div class="status-bar">
+        <div class="status-indicator" id="status">
+          <span class="status-dot"></span>
+          <span class="status-text">Connecting...</span>
+        </div>
+        <div class="sync-time" id="syncTime">—</div>
+      </div>
+      <h1>
+        <span class="title-icon">🌡️</span>
+        Climate Dashboard
+        <span class="title-icon">💧</span>
+      </h1>
     </header>
 
-    <main class="card">
-      <div class="values">
-        <div class="value-box">
-          <div class="icon-box">
-            <i class="fa-solid fa-temperature-three-quarters icon"></i>
-          </div>
-          <div class="label">Temperature</div>
-          <div id="temp" class="value">-- °C</div>
+    <main>
+      <!-- Temperature Section -->
+      <section class="theme-section temperature-theme">
+        <div class="theme-background">
+          <div class="fire-particle"></div>
+          <div class="fire-particle"></div>
+          <div class="fire-particle"></div>
         </div>
 
-        <div class="value-box">
-          <div class="icon-box">
-            <i class="fa-solid fa-droplet icon"></i>
+        <div class="section-header">
+          <div class="icon-container temperature-icon">
+            <i class="fa-solid fa-fire-flame-curved"></i>
           </div>
-          <div class="label">Humidity</div>
-          <div id="hum" class="value">-- %</div>
+          <div class="header-info">
+            <h2>Temperature</h2>
+            <p class="description">Current heat level</p>
+          </div>
+          <div class="trend-badge" id="tempTrend"></div>
         </div>
-      </div>
+
+        <div class="main-reading">
+          <div class="reading-display">
+            <span class="reading-value" id="temp">--</span>
+            <span class="reading-unit">°C</span>
+          </div>
+          <div class="temperature-gauge">
+            <div class="gauge-fill" id="tempGauge"></div>
+            <div class="gauge-labels">
+              <span>0°</span>
+              <span>25°</span>
+              <span>50°</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="stats-row">
+          <div class="stat-item">
+            <i class="fa-solid fa-temperature-arrow-up"></i>
+            <div>
+              <div class="stat-label">Feels Like</div>
+              <div class="stat-value" id="feelsLike">—</div>
+            </div>
+          </div>
+          <div class="stat-item">
+            <i class="fa-solid fa-gauge-high"></i>
+            <div>
+              <div class="stat-label">Status</div>
+              <div class="stat-value" id="tempStatus">—</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Humidity Section -->
+      <section class="theme-section humidity-theme">
+        <div class="theme-background">
+          <div class="water-drop"></div>
+          <div class="water-drop"></div>
+          <div class="water-drop"></div>
+        </div>
+
+        <div class="section-header">
+          <div class="icon-container humidity-icon">
+            <i class="fa-solid fa-cloud-rain"></i>
+          </div>
+          <div class="header-info">
+            <h2>Humidity</h2>
+            <p class="description">Moisture in air</p>
+          </div>
+          <div class="trend-badge" id="humTrend"></div>
+        </div>
+
+        <div class="main-reading">
+          <div class="reading-display">
+            <span class="reading-value" id="hum">--</span>
+            <span class="reading-unit">%</span>
+          </div>
+          <div class="humidity-wave">
+            <div class="wave-fill" id="humWave">
+              <svg viewBox="0 0 500 150" preserveAspectRatio="none">
+                <path class="wave-path" d="M0,50 Q125,20 250,50 T500,50 V150 H0 Z">
+                  <animate attributeName="d" dur="3s" repeatCount="indefinite" values="M0,50 Q125,20 250,50 T500,50 V150 H0 Z;
+                            M0,50 Q125,80 250,50 T500,50 V150 H0 Z;
+                            M0,50 Q125,20 250,50 T500,50 V150 H0 Z" />
+                </path>
+              </svg>
+            </div>
+            <div class="gauge-labels">
+              <span>0%</span>
+              <span>50%</span>
+              <span>100%</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="stats-row">
+          <div class="stat-item">
+            <i class="fa-solid fa-droplet"></i>
+            <div>
+              <div class="stat-label">Comfort</div>
+              <div class="stat-value" id="comfortLevel">—</div>
+            </div>
+          </div>
+          <div class="stat-item">
+            <i class="fa-solid fa-water"></i>
+            <div>
+              <div class="stat-label">Status</div>
+              <div class="stat-value" id="humStatus">—</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Combined Stats -->
+      <section class="combined-stats">
+        <div class="combined-card">
+          <div class="combined-icon">
+            <i class="fa-solid fa-wind"></i>
+          </div>
+          <div class="combined-info">
+            <div class="combined-label">Overall Comfort</div>
+            <div class="combined-value" id="overallComfort">—</div>
+          </div>
+        </div>
+        <div class="combined-card">
+          <div class="combined-icon">
+            <i class="fa-solid fa-sun"></i>
+          </div>
+          <div class="combined-info">
+            <div class="combined-label">Heat Index</div>
+            <div class="combined-value" id="heatIndex">—</div>
+          </div>
+        </div>
+      </section>
     </main>
 
     <footer>
-      <p>IoT Sensor Dashboard</p>
+      <div class="footer-content">
+        <p id="lastUpdate">Last updated: —</p>
+        <p class="footer-tag">Real-time IoT Monitoring</p>
+      </div>
     </footer>
   </div>
 
